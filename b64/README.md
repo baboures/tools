@@ -5,3 +5,5 @@
 - *```atob```/```btoa``` enhancement to support full Unicode charset (atob and btoa only support Latin-1 natively)*
 - *UTF-8 encoding*
 - *Works locally*
+
+https://baboures.github.io/tools/b64/
