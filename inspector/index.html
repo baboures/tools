@@ -1,6 +1,7 @@
 <!DOCTYPE html><!-- https://baboures.github.io/tools/inspector/ -->
 <html>
 <head>
+<meta charset="utf-8">
 <title>Eval Inspector</title>
 <style>
 body {
@@ -57,18 +58,27 @@ window.setTimeout = function(){
 	if(typeof arguments[0] == "string")
 		console.log("setTimeout:", arguments[0]);
 	return __tmpTimeout.apply(null, arguments);
-}
+};
 
 var __tmpInterval = window.setInterval;
 window.setInterval = function(){
 	if(typeof arguments[0] == "string")
 		console.log("setInterval:", arguments[0]);
 	return __tmpInterval.apply(null, arguments);
-}
+};
+
+var __tmpEval = window.eval;
+window.eval = function(str){
+	console.log("eval:", str);
+	try{
+		return __tmpEval.apply(null, arguments);
+	} catch(err){ }
+};
 
 function inspect(code){
-	var __tmp = "var eval = function(str){ console.log('eval:', str); return (function(eval){ try{ return eval(__tmp + str) } catch(err){  } })(window.eval) }; ";
-	return eval("var eval = function(str){ console.log('eval:', str); return (function(eval){ try{ return eval(__tmp + str) } catch(err){  } })(window.eval) }; " + code);
+	var __tmp = "var eval = function(str){ console.log('eval:', str); return (function(eval){ try{ return eval(__tmp + str) } catch(err){  } })(__tmpEval) }; ";
+	var eval = __tmpEval;
+	return eval("var eval = function(str){ console.log('eval:', str); return (function(eval){ try{ return eval(__tmp + str) } catch(err){  } })(__tmpEval) }; " + code);
 }
 
 </script>
