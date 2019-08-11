@@ -1,6 +1,8 @@
 <!DOCTYPE html><!-- https://baboures.github.io/tools/b64/ -->
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="description" content="Online base64 url-safe JavaScript encoder/decoder with full Unicode support (using UTF-8 encoding)">
 <title>Base64 encoder/decoder (UTF-8)</title>
 <style>
 body {
@@ -74,14 +76,16 @@ $("#decode").onclick = function(){
     try{
         $("#result").value = b64DecodeUnicode($("#safe").checked ? toUnsafeB64(val) : val);
     }catch(err){
-        $("#result").value = "Invalid Base64 string!";
+        $("#result").value = (err.name == "URIError")? "Not a valid UTF-8 string!" : "Invalid Base64 string!";
+        // Not a valid UTF-8 string: The decoded Base64 data does not represent a valid UTF-8 sequence
+        // Invalid Base64 string: the string contains characters out of the B64 range or is not correctly padded
     }
 }
 
 // Base 64 JS implementation for Unicode UTF-8 strings
 // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings#30106551
 // Encoding explanation: 
-// 1) encodeURIComponent encodes non-ascii chars codepoints to their UTF-8 hexadecimal representation. 
+// 1) encodeURIComponent encodes non-ascii chars codepoints to their UTF-8 hexadecimal representation.
 // Example: encodeURIComponent("ñ") == "%C3%B1" // C3B1 => (110)00011 (10)110001, Code point: 00011110001 = 11110001 => 241 == "ñ".codePointAt(0)
 // 2) Then, we replace each hexadecimal octet with the unicode character having that code point.
 // Example: the octet C3 represents the character with codepoint 195 (since parseInt("C3",16) == 195). The octet B1 represents the character with codepoint 177 (since parseInt("B1",16) == 177).
