@@ -77,8 +77,8 @@ $("#decode").onclick = function(){
         $("#result").value = b64DecodeUnicode($("#safe").checked ? toUnsafeB64(val) : val);
     }catch(err){
         $("#result").value = (err.name == "URIError")? "Not a valid UTF-8 string!" : "Invalid Base64 string!";
-        // Not a valid UTF-8 string: The decoded Base64 data does not represent a valid UTF-8 sequence
-        // Invalid Base64 string: the string contains characters out of the B64 range or is not correctly padded
+        // Not a valid UTF-8 string: the decoded Base64 data does not represent a valid UTF-8 sequence
+        // Invalid Base64 string: the string contains characters out of the B64 range, or has invalid length (the length including padding should be multiple of 4)
     }
 }
 
