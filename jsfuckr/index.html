@@ -1,0 +1,81 @@
+<!DOCTYPE html><!-- https://baboures.github.io/tools/jsfuckr/ -->
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="JSFuckr: an esoteric language based on JSFuck. Encode JavaScript using only six chars ([+<])">
+<title>JSFuckr</title>
+<style>
+body {
+    font-family: monospace;
+    background-color: #ebebeb;
+}
+button {
+    height: 30px;
+    width: 100px;
+    background-color: orange;
+    border-color: darkorange;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    outline: none;
+}
+textarea {
+    width: 95%;
+    display: block;
+}
+div.container {
+    margin: 10px 0;
+    width: 95%;
+}
+div.container * {
+    vertical-align: middle; /* align vertically checkbox and label */
+}
+#numchars {
+    float: right;
+}
+.sub {
+    display: block;
+    position: relative;
+    width: 300px;
+    top: -15px;
+    left: 50px;
+}
+</style>
+<script src="./JSFuckr.js"></script>
+</head>
+<body>
+<h2>
+    <span style="color:lime">&gt;</span> JSFuckr: encode JavaScript using only six chars ([+<])
+</h2>
+<span class="sub">An esoteric language based on <a href="http://www.jsfuck.com/" target="_blank">JSFuck</a></span>
+Input:
+<textarea rows="15" id="input" placeholder="Paste code here..." autofocus>
+var str = "Hello world!";
+alert(str);
+</textarea>
+<div class="container">
+    <button id="encode">Encode</button>
+    <input type="checkbox" id="eval-source" checked><label for="eval-source">Eval source</label>
+    <input type="checkbox" id="parent-scope" checked><label for="parent-scope">Run in parent scope</label>
+</div>
+Result:
+<textarea rows="15" id="result" readonly></textarea>
+<div class="container">
+    <button id="run">Run code</button>
+    <span id="numchars">Number of chars: 0</span>
+</div>
+<script>
+var $ = document.querySelector.bind(document); // alias
+
+$("#encode").onclick = function(){
+    var encoded = JSFuckr.encode($("#input").value, $("#eval-source").checked, $("#parent-scope").checked);
+    $("#result").value = encoded;
+    $("#numchars").textContent = $("#numchars").textContent.replace(/\d+/, encoded.length);
+};
+
+$("#run").onclick = function(){
+    eval($("#result").value);
+};
+</script>
+</body>
+</html>
