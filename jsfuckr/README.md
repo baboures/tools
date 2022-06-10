@@ -2,7 +2,7 @@
 
 **Features**
 - You can encode JavaScript using only six chars `([+<])`
-- It is a variant of [JSFuck](http://jsfuck.com), but uses `<` instead of `!`
+- It's a modification of [JSFuck](http://jsfuck.com) that uses `<` instead of `!`
 
 **How it works**
 
