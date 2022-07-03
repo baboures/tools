@@ -3,7 +3,7 @@
 **What it does**
 
 - This tool takes as input some <ins>setup code</ins> containing array declarations, and a <ins>main code</ins> containing references to these arrays. 
-- The tool replaces each appearance of an array in the main code with its corresponding value according to the setup code you provided.
+- The tool replaces each ocurrence of an array in the main code with its corresponding value according to the setup code you provided.
 
 **Features**
 - Useful for deobfuscating JavaScript code that hides strings/numbers within arrays.
