@@ -1,0 +1,67 @@
+<!DOCTYPE html><!-- https://baboures.github.io/tools/XORCracker/ -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XOR Cracker</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        .vertical * {
+        	vertical-align: middle;
+        }
+        h1 {
+        	margin: 0 0 10px 0;
+        }
+    </style>
+    <script type="text/javascript">
+        function xor(str, key) {
+            return [].map.call(str, function(v) {
+                return String.fromCharCode(v.charCodeAt() ^ key);
+            }).join("");
+        }
+
+        function generate() {
+            var min = parseInt(document.getElementById("start").value, 10),
+                max = parseInt(document.getElementById("end").value, 10),
+                text = document.getElementById("text").value,
+                arr = [],
+                tmp;
+            if(hex.checked)
+            	try{
+            		text = decodeURIComponent("%" + text.trim().split(/(?:\s+)|(?:\s*[,-]\s*)/).join("%")); // convert space-separated hexadecimal bytes (encoded in UTF-8) to string
+	            }catch(err){
+	            	alert("Invalid UTF-8 sequence.");
+	            	return;
+	            }
+            for (var i = min; i <= max; i++) {
+                tmp = xor(text, i);
+                if (check.checked && /[^\x20-\xFF\r\n\t]/.test(tmp)) // filter out strings containing non-ANSI or non-printable chars (except \r, \n and \t)
+                	continue;
+                arr[i] = tmp;
+            }
+            console.log(Object.keys(arr).length + " combinations found:");
+            console.dir(arr);
+        }
+    </script>
+</head>
+<body>
+	<fieldset>
+	    <legend>
+	    	<h1>XOR Cracker</h1>
+	    </legend>
+	    <div class="vertical">
+		    <label for="text">Encoded text</label>
+		    <textarea rows="3" cols="60" id="text" placeholder="Cipher in plain or hex" autofocus></textarea>
+	    </div><br>
+	    <label for="start">Start</label>
+	    <input type="number" value="0" min="0" id="start"><br><br>
+	    <label for="end">End</label>
+	    <input type="number" value="255" min="0" id="end"><br><br>
+	    <input type="checkbox" id="hex">Hexadecimal mode<br><br>
+	    <input type="checkbox" id="check" checked>Filter out non-printable results<br><br>
+	    <input type="button" value="Generate" onclick="generate()">
+    </fieldset>
+</body>
+</html>
