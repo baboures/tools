@@ -14,6 +14,9 @@
         h1 {
         	margin: 0 0 10px 0;
         }
+        #result {
+        	white-space: pre;
+        }
     </style>
     <script type="text/javascript">
         function xor(str, key) {
@@ -41,8 +44,10 @@
                 	continue;
                 arr[i] = tmp;
             }
-            console.log(Object.keys(arr).length + " combinations found:");
-            console.dir(arr);
+            result.textContent = "\n" + Object.keys(arr).length + " combinations found: \n\n";
+            for(var i in arr){
+            	result.textContent += i + ": " + arr[i] + "\n";
+            }
         }
     </script>
 </head>
@@ -62,6 +67,7 @@
 	    <input type="checkbox" id="hex">Hexadecimal mode<br><br>
 	    <input type="checkbox" id="check" checked>Filter out non-printable results<br><br>
 	    <input type="button" value="Generate" onclick="generate()">
+	    <br><div id="result"></div>
     </fieldset>
 </body>
 </html>
