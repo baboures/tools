@@ -4,3 +4,4 @@
 - [JSFuckr](https://baboures.github.io/tools/jsfuckr/)
 - [ArrayUnpacker](https://baboures.github.io/tools/arrayUnpacker/)
 - [XORCracker](https://baboures.github.io/tools/XORCracker/)
+- [MessageHider](https://baboures.github.io/tools/hidemessage/)
