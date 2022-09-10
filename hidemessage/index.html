@@ -1,0 +1,49 @@
+<!DOCTYPE html><!-- https://baboures.github.io/tools/hidemessage/ -->
+<html>
+<head>
+<title>Hide message within text</title>
+</head>
+<body>
+<script>
+function encode(str, key) {
+	str = str.toLowerCase().replace(/[^a-z]+/g, '');
+	key = String(key).replace(/0/g, '').split('').map(Number);
+	var cipher = [],
+		lttrs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+		reset = false,
+		keyIndex = 0,
+		currentIndex = -1;
+	[].forEach.call(str, function(v, k) {
+		currentIndex += key[keyIndex];
+		cipher[currentIndex] = v;
+		if(keyIndex >= key.length - 1) keyIndex = 0; else keyIndex++;
+	});
+	var arr = Array.apply(null, Array(currentIndex + 1 + (key[keyIndex] == 1 ? 0 : Math.floor(Math.random() * (key[keyIndex] - 1)) + 1)));
+	return arr.map(function(v, k) {
+		return cipher[k] || lttrs[Math.floor(Math.random() * lttrs.length)];
+	}).reverse().join('');
+}
+
+function decode(str, key) {
+	str = str.toLowerCase().replace(/[^a-z]+/g, '').split('').reverse().join('');
+	key = String(key).replace(/0/g, '').split('').map(Number);
+	var output = '',
+		keyIndex = 0,
+		currentIndex = -1;
+	while (currentIndex < str.length) {
+		currentIndex += key[keyIndex];
+		output += str.charAt(currentIndex);
+		if(keyIndex >= key.length - 1) keyIndex = 0; else keyIndex++;
+	}
+	return output;
+}
+</script>
+<textarea id="input" style="height:200px;width:500px;margin:10px 0;display:block;" autofocus placeholder="Place here the alphabetic message..."></textarea>
+<label>KEY
+<input id="key" type="number" value="4815162342">
+</label>
+<input type="button" value="Encode" onclick="output.value=encode(input.value,key.value)">
+<input type="button" value="Decode" onclick="output.value=decode(input.value,key.value)">
+<textarea id="output" style="height:200px;width:500px;margin:8px 0;display:block"></textarea>
+</body>
+</html>
