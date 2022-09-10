@@ -1,5 +1,7 @@
 ## Array Unpacker [JS]
 
+Try it: https://baboures.github.io/tools/arrayUnpacker/
+
 **What it does**
 
 - This tool takes as input some <ins>setup code</ins> containing array declarations, and a <ins>main code</ins> containing references to these arrays. 
@@ -9,5 +11,3 @@
 - Useful for deobfuscating JavaScript code that hides strings/numbers within arrays.
 - You can filter specific variable names. For example, arrays starting with `_`.
 - You can choose between step-by-step or recursive replacement.
-
-https://baboures.github.io/tools/arrayUnpacker/
