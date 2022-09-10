@@ -23,7 +23,7 @@ Steps:
 4. The letter `b` is at position **3** starting from the previous position: `b..o....o...f..`
 5. The letter `a` is at position **4** starting from the previous position: `a...b..o....o...f..`
 6. The letter `r` is at position **5** starting from the previous position: `r....a...b..o....o...f..`
-7. To prevent leaking the last character, additional padding is added at the beginning of the ciphertext. If there was another letter in the plain text, we should insert it at position 3 starting from the previous position. Thus, we can add 1 or 2 random characters at the beginning of the ciphertext, like so:
+7. To prevent leaking the last character, additional padding is added at the beginning of the ciphertext. If there was another letter in the plain text, we should insert it at position 3 starting from the previous position (the position of `r`). Thus, we are free to add 1 or 2 random characters at the beginning of the ciphertext:
 
 `..r....a...b..o....o...f..`
 
